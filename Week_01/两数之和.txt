@@ -1,0 +1,15 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer,Integer> hashtable = new HashMap<Integer,Integer>();
+        for(int i = 0;i<nums.length;i++){
+            if(hashtable.containsKey(target-nums[i])){
+                return new int[]{hashtable.get(target-nums[i]),i};
+            }
+            hashtable.put(nums[i],i);
+        }
+       return new int[0];
+    }
+}
+/*思路：如果单纯使用暴力法，用两个for循环，得到数组中的两个数之和所对应的下标，时间复杂度为O(n2),而使用哈希表，
+可以将当前遍历的数组对应下标参照键值存到哈希表中，如果遍历下一个数据得到目标值，可以返回数组对应的下标。时间
+复杂度为o(n)*/

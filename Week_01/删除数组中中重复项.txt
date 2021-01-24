@@ -1,0 +1,19 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+       if(nums.length == 0){
+           return 0;
+       }
+       int p = 0;
+       int q = p+1;
+       while (q<nums.length){
+           if(nums[p]!=nums[q]){
+               nums[p+1]=nums[q];
+               p++;
+           }
+           q++;
+       }
+       return p+1;
+    }
+}
+/*思路：利用双指针，判断指针所指数组是否相等，如果相等，后指针向后移动，前指针不懂，不相等，将后指针数组值放置在
+前指针的后一个元素中，同时前后指针均向后移动，直到后指针到达边界，此时从数组开始到前指针之间为不重复数组，输出即可。*/

@@ -1,0 +1,31 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums.length==0){
+            return;
+        }
+       /* int j=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=0){
+                nums[j]=nums[i];
+                j++;
+            }
+        }
+        for(int i=j;i<nums.length;i++){
+            nums[i]=0;
+        }*/
+         int j=0;
+         int tem = 0;
+         for(int i=0;i<nums.length;i++){
+             if(nums[i]!=0){
+                 tem = nums[i];
+                 nums[i] = nums[j];
+                 nums[j]= tem;
+                 j++;
+             }
+         }
+    }
+}
+/*思路：1.与删除数组重复数字类似，遍历数组元素，如果指针所指元素不为零，则赋值前指针位置，同时前指针向后移动，如果为0则前指针不动，直到遍历所有元素，然后将前指针所指元素
+后面所有的元素赋值为0
+2.遍历所有元素，如果不为零，则与前指针交换元素，为0则前指针不懂，这样最后不用再赋值0。*/
+时间复杂度均为o(n)

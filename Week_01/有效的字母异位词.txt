@@ -1,0 +1,20 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+        int a[] = new int[26];
+        for(int i=0;i<s.length();i++){
+            a[s.charAt(i)-'a']++;
+            a[t.charAt(i)-'a']--;
+        }
+        for(int i=0;i<26;i++){
+            if(a[i]!=0)
+            return false;
+        }
+        return true;
+    }
+}
+/*思路：单词只出现26个英文字母，所以用长度为26的数组记录单词中字母出现的次数，即a[s.charAt(i)-'a']++语句，例如a字母就存到a[0]
+当中，并且a[0]加1，以此类推，s字符串为自增，t字符串为自减，如果最后结果为0，返回真，否则为假，一开始判断两个字符长度是否相等
+，不相等一定不是字母异位词。
