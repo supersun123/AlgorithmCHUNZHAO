@@ -1,0 +1,162 @@
+
+冒泡排序
+     public static int[] bubbleSort(int[] array) {
+       if (array.length == 0)
+         return array;
+       for (int i = 0; i < array.length; i++)
+           for (int j = 0; j < array.length - 1 - i; j++)
+                if (array[j + 1] < array[j]) {
+                   int temp = array[j + 1];
+                array[j + 1] = array[j];
+                  array[j] = temp;
+           }
+      return array;
+   }
+　/**
+     * 选择排序
+     * @param array
+     * @return
+     */
+    public static int[] selectionSort(int[] array) {
+        if (array.length == 0)
+            return array;
+        for (int i = 0; i < array.length; i++) {
+            int minIndex = i;
+            for (int j = i; j < array.length; j++) {
+                if (array[j] < array[minIndex]) //找到最小的数
+                    minIndex = j; //将最小数的索引保存
+            }
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+        return array;
+    }
+**
+     * 插入排序
+     * @param array
+     * @return
+     */
+    public static int[] insertionSort(int[] array) {
+        if (array.length == 0)
+            return array;
+        int current;
+        for (int i = 0; i < array.length - 1; i++) {
+            current = array[i + 1];
+            int preIndex = i;
+            while (preIndex >= 0 && current < array[preIndex]) {
+                array[preIndex + 1] = array[preIndex];
+                preIndex--;
+            }
+            array[preIndex + 1] = current;
+        }
+        return array;
+    }
+
+ * 2归并
+ * @param array
+ * @return
+ */
+public static int[] MergeSort(int[] array){
+	if(array.length < 2){
+	return array;
+	}
+	int mid = array.length /2;
+	int[] left = Arrays.copyOfRange(array, 0, mid);
+	int[] right = Arrays.copyOfRange(array, mid, array.length);
+	return merge(MergeSort(left),MergeSort(right));	
+	}
+
+public static int[] merge(int[] left,int[] right){
+	int[] result = new int[left.length + right.length];
+	for(int index = 0,i = 0, j = 0;index < result.length;index++){
+		if(i >= left.length){
+			result[index] = right[j++];
+		}else if(j >= right.length){
+				result[index] = left[i++];
+		}else if(left[i] > right[j]){
+			result[index] = right[j++];
+		}else{
+			result[index] = left[i++];
+		}
+	}
+	return result;
+		
+}
+	/**
+	 * 快速排序算法
+	 * @param array
+	 * @param low
+	 * @param hight
+	 */
+	public static void QuickSort(int[] array,int low,int hight){
+		//if (array.length < 1 || low < 0 || hight >= array.length || low > hight) return null;
+		if(low < hight){
+			int privotpos = partition(array,low,hight);
+			QuickSort(array,low,privotpos - 1);
+			QuickSort(array,privotpos + 1,hight);			
+		}
+	
+	}
+	
+	public static int partition(int[] array,int low,int hight){
+		int privot = array[low];
+		while(low < hight){
+			while(low < hight && array[hight] >= privot) --hight;
+			array[low] = array[hight];
+			while(low < hight && array[low] <= privot) ++low;
+			array[hight] = array[low];
+		}
+		array[low] = privot;
+		return low;			
+	}
+/**
+	 * 调整堆
+	 * @param array
+	 * @param index
+	 * @param length
+	 */
+	public static void heapAdjust(int[] array,int index,int length){
+		//保存当前结点的下标
+		int max = index;
+		//当前节点左子节点的下标
+		int lchild = 2*index;
+		//当前节点右子节点的下标
+		int rchild = 2*index + 1;
+		if(length > lchild && array[max] < array[lchild]){
+			max = lchild;
+		}
+		if(length > rchild && array[max] < array[rchild]){
+			max = rchild;
+		}
+		//若此节点比其左右孩子的值小，就将其和最大值交换，并调整堆
+		if(max != index){
+			int temp = array[index];
+			array[index] = array[max];
+			array[max] = temp;
+			heapAdjust(array,max,length);
+		}
+		
+	}
+	
+	/**
+	 * 堆排序
+	 * @param array
+	 * @return
+	 */
+	public static int[] heapSort(int[] array){
+		int len = array.length;
+		//初始化堆，构造一个最大堆
+		for(int i = (len/2 - 1);i >= 0;i--){
+			heapAdjust(array,i,len);
+		}
+		//将堆顶的元素和最后一个元素交换，并重新调整堆
+		for(int i = len - 1;i > 0;i--){
+			int temp = array[i];
+			array[i] = array[0];
+			array[0] = temp;
+			
+			heapAdjust(array,0,i);
+		}
+		return array;
+	}
